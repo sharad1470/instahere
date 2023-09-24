@@ -1,0 +1,31 @@
+.header{
+
+}
+.header-container{
+    margin: auto;
+    max-width: 80%;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding: 10px;
+    padding-top: 15px;
+}
+.header-left{
+    width: 10rem;
+}
+.header-left img{
+    width: inherit;
+}
+.header-right{
+    display: flex;
+
+
+}
+.header-right-button{
+    padding: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    background-color:rgba(0, 0, 255, 0.436);
+    margin-left: 10px;
+}
