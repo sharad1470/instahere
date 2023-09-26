@@ -1,0 +1,16 @@
+.addpost{
+    margin-top: 55px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.addpost-input{
+    padding: 10px;
+}
+.addpost-button{
+    padding: 10px;
+    background-color: red;
+    width: 6%;
+    margin: auto;
+    cursor: pointer;
+}

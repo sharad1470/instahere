@@ -1,6 +1,4 @@
-.header{
 
-}
 .header-container{
     margin: auto;
     max-width: 80%;
@@ -28,4 +26,5 @@
     color: white;
     background-color:rgba(0, 0, 255, 0.436);
     margin-left: 10px;
+    cursor: pointer;
 }

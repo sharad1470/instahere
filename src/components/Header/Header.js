@@ -1,7 +1,12 @@
 import React from 'react';
+import 'firebase/compat/auth';
+import firebase from 'firebase/compat/app';
 import './Header.css';
+import { auth } from '../../Firebase';
 
-const Header = () => {
+const Header = ({setOpenRegisterUsers, setOpenSignIn,user}) => {
+
+    //console.log(user);
     return (
         <div className='header'>
             <div className='header-container'>
@@ -12,8 +17,20 @@ const Header = () => {
 
                 </div>
                 <div className='header-right'>
-                    <div className='header-right-button'>SignIn</div>
-                    <div className='header-right-button'>SignUp</div>
+
+                    {user==null?(
+                        <>
+                        <div onClick={()=>setOpenSignIn(true)} className='header-right-button'>SignIn</div>
+                        <div onClick={()=>setOpenRegisterUsers(true)} className='header-right-button'>SignUp</div>
+                        </>
+                    ):(
+                        <>
+                        <div>Hello  {user.displayName}</div>
+                        <div onClick={()=>auth.signOut()} className='header-right-button'>LogOut</div>
+                        </>
+                    )
+                    }
+                    
                 </div>
             </div>
             

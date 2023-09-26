@@ -1,5 +1,5 @@
 import React from 'react';
-import firbase from 'firebase/compat/app';
+import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/storage';
 import 'firebase/compat/firestore';
@@ -14,7 +14,7 @@ const firebaseConfig = {
   };
 
   
-  const app = initializeApp(firebaseConfig);
+  const app = firebase.initializeApp(firebaseConfig);
 
   const auth=firebase.auth();
   const storage=firebase.storage();
