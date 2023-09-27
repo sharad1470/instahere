@@ -9,6 +9,10 @@ const Post = ({user,postId,post}) => {
     const {imageURL, caption, username}=post;
     const [newComment, setNewComment]=useState('');
     const [comments, setComments]=useState([]);
+    const [editCommentId, setEditcommentId]=useState(null);
+    const [editCommentText, setEditcommentText]=useState('');
+    const [editText, setEditText]=useState('');
+    const [showEdit, setShowEdit]=useState(false);
 
     const deleteHandle=()=>{
         db.collection('posts')
@@ -33,6 +37,22 @@ const Post = ({user,postId,post}) => {
         .doc(id).delete();
     }
 
+    const editCommentHandle=(id,txt)=>{
+        setShowEdit(true);
+        setEditcommentText(txt);
+        setEditcommentId(id);
+    }
+
+    const updateCommentHandler=()=>{
+        db.collection('posts')
+        .doc(postId)
+        .collection('comments')
+        .doc(editCommentId).update({
+            text:editCommentText
+        }).then(()=>{
+            setShowEdit(false);
+        })
+    }
     useEffect(()=>{
         db.collection('posts')
         .doc(postId).collection('comments')
@@ -66,15 +86,23 @@ const Post = ({user,postId,post}) => {
                                     <div className='post-comment-singlecomment-username'>{comment.userName}</div>
                                     <div className='post-comment-singlecomment-text'>{comment.text}</div>
                                     <div className='post-comment-edit'></div>
-                                   {user.displayName===comment.userName && <div onClick={()=>deleteCommentHandle(id)} className='post-comment-delete'>
-                                        <i className="edit fa-solid fa-pen-to-square"></i>
-                                        <i class="fa-solid fa-trash"></i>
+                                   {user.displayName===comment.userName && <div  className='post-comment-delete'>
+                                        <i  onClick={()=>editCommentHandle(id,comment.text)} className="edit fa-solid fa-pen-to-square"></i>
+                                        <i onClick={()=>deleteCommentHandle(id)} class="fa-solid fa-trash"></i>
                                     </div>
                                     }
                                 </div>
                             })
                         }
                     </div>
+                    {showEdit && <div className='post-comment-editbox'>
+                        <input
+                            value={editCommentText}
+                            onChange={(e)=>setEditcommentText(e.target.value)}
+                        />
+                        <button onClick={updateCommentHandler}>update</button>
+                    </div>
+                    }
                     <div className='post-comment-input'>
                         <input 
                         value={newComment}
@@ -83,7 +111,12 @@ const Post = ({user,postId,post}) => {
 
                         <div onClick={addCommentHandler} className='post-comment-addbutton'>Add</div>
                     </div>
+                  
                 </div>
+
+                
+
+                
                 {username===user.displayName && <div 
                 onClick={deleteHandle}
                 className='post-delete'>
